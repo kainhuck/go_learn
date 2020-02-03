@@ -17,3 +17,18 @@ var secrets = gin.H{
 	"austin": gin.H{"email": "austin@example.com", "phone": "666"},
 	"lena":   gin.H{"email": "lena@guapa.com", "phone": "523443"},
 }
+
+// Person ...
+type Person struct {
+	Name    string `form:"name"`
+	Address string `form:"address"`
+}
+
+
+type formA struct{
+	Foo string `json:"foo" xml:"foo" binding:"required"`
+}
+
+type formB struct{
+	Bar string `json:"bar" xml:"bar" binding:"required"`
+}

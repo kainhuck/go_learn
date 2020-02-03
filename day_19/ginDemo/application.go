@@ -41,4 +41,8 @@ func application(engine *gin.Engine) {
 	authorized.GET("/secrets", secretsHandler)
 
 	engine.GET("/bindQuery", bindQueryHandler)
+	engine.GET("/long_async", longAsyncHandler)
+	engine.GET("/long_sync", longSyncHandler)
+	engine.GET("multiBind", multiBindHandler)
+	engine.GET("/mapargs", mapArgsHandler)
 }

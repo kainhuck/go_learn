@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"path"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -215,5 +216,62 @@ func secretsHandler(c *gin.Context) {
 }
 
 func bindQueryHandler(c *gin.Context) {
+	var person Person
+	if c.ShouldBindQuery(&person) == nil {
+		log.Println("========Only Bind By Query String=========")
+		log.Println(person.Name)
+		log.Println(person.Address)
+	}
+	c.String(200, "ok")
+}
 
+func longAsyncHandler(c *gin.Context) {
+	// 当在中间件或 handler 中启动新的 Goroutine 时，不能使用原始的上下文，必须使用只读副本。
+
+	// 创建一个context副本
+	cCp := c.Copy()
+
+	go func() {
+		// 模拟一个长任务
+		time.Sleep(5 * time.Second)
+
+		// 请注意您使用的是复制的上下文 "cCp"，这一点很重要
+		log.Println("Done! in path " + cCp.Request.URL.Path)
+	}()
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": "ok",
+	})
+}
+
+func longSyncHandler(c *gin.Context) {
+	// 模拟一个长任务
+	time.Sleep(5 * time.Second)
+
+	// 请注意您使用的是复制的上下文 "cCp"，这一点很重要
+	log.Println("Done! in path " + c.Request.URL.Path)
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": "ok",
+	})
+}
+
+func multiBindHandler(c *gin.Context) {
+	objA := formA{}
+	objB := formB{}
+
+	if err := c.ShouldBind(&objA); err == nil {
+		c.String(200, "bind in formA")
+	} else if err := c.ShouldBind(&objB); err == nil {
+		c.String(200, "bind in formB")
+	}
+}
+
+func mapArgsHandler(c *gin.Context){
+	ids := c.QueryMap("ids")
+	names := c.PostFormMap("names")
+	fmt.Printf("ids: %v; names: %v", ids, names)
+	c.JSON(http.StatusOK, gin.H{
+		"status": "ok",
+	})
 }
