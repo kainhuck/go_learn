@@ -1,6 +1,9 @@
 package main
 
 import (
+	"net/http"
+	"time"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -27,5 +30,14 @@ func main() {
 	// }
 
 	application(engine)
-	engine.Run(":8000")
+	// engine.Run(":8000")
+	// 自定义http配置
+	s := &http.Server{
+		Addr:           ":8000",
+		Handler:        engine,
+		ReadTimeout:    10 * time.Second,
+		WriteTimeout:   10 * time.Second,
+		MaxHeaderBytes: 1 << 20,
+	}
+	s.ListenAndServe()
 }

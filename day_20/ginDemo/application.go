@@ -45,5 +45,10 @@ func application(engine *gin.Engine) {
 	engine.GET("/long_sync", longSyncHandler)
 	engine.GET("multiBind", multiBindHandler)
 	engine.GET("/mapargs", mapArgsHandler)
-	
+	engine.POST("/bindjson", bindJSONHandler)
+	engine.POST("/bindxml", bindXMLHandler)
+	engine.POST("/bindform", bindFormHandler)
+	engine.POST("/bindCheckBox", bindCheckBoxHandler)
+	engine.GET("/binduri/:name/:id", bindURIHandler)
+	engine.GET("/bindquerystr", bindQueryStrHandler)
 }

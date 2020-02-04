@@ -267,11 +267,113 @@ func multiBindHandler(c *gin.Context) {
 	}
 }
 
-func mapArgsHandler(c *gin.Context){
+func mapArgsHandler(c *gin.Context) {
 	ids := c.QueryMap("ids")
 	names := c.PostFormMap("names")
 	fmt.Printf("ids: %v; names: %v", ids, names)
 	c.JSON(http.StatusOK, gin.H{
 		"status": "ok",
 	})
+}
+
+func bindJSONHandler(c *gin.Context) {
+	var user Root
+
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"err": err.Error(),
+		})
+		return
+	}
+
+	if user.Username != "tutu" || user.Password != "huhu" {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"status": "unauthorized",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": "you are logged in",
+	})
+}
+
+func bindXMLHandler(c *gin.Context) {
+	var user Root
+
+	if err := c.ShouldBindXML(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"err": err.Error(),
+		})
+		return
+	}
+
+	if user.Username != "tutu" || user.Password != "huhu" {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"status": "unauthorized",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"status": "loggin successfully!",
+	})
+}
+
+func bindFormHandler(c *gin.Context) {
+	var form Root
+
+	if err := c.ShouldBind(&form); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"err": err.Error(),
+		})
+		return
+	}
+
+	if form.Username != "tutu" || form.Password != "huhu" {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"status": "unauthorized",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": "loggin successfully",
+	})
+}
+
+func bindCheckBoxHandler(c *gin.Context) {
+	var fakeForm myForm
+	c.ShouldBind(&fakeForm)
+	c.JSON(http.StatusOK, gin.H{
+		"color": fakeForm.Colors,
+	})
+}
+
+func bindURIHandler(c *gin.Context) {
+	var u user
+
+	if err := c.ShouldBindUri(&u); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"err": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"name": u.Name,
+		"id":   u.ID,
+	})
+}
+
+func bindQueryStrHandler(c *gin.Context) {
+	var qd queryData
+	// 如果是 `GET` 请求，只使用 `Form` 绑定引擎（`query`）。
+	// 如果是 `POST` 请求，首先检查 `content-type` 是否为 `JSON` 或 `XML`，然后再使用 `Form`（`form-data`）。
+	if c.ShouldBind(&qd) == nil {
+		log.Println(qd.Name)
+		log.Println(qd.Address)
+		log.Println(qd.Birthday)
+	}
+
+	c.String(200, "success")
 }
