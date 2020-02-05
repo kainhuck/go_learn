@@ -51,4 +51,7 @@ func application(engine *gin.Engine) {
 	engine.POST("/bindCheckBox", bindCheckBoxHandler)
 	engine.GET("/binduri/:name/:id", bindURIHandler)
 	engine.GET("/bindquerystr", bindQueryStrHandler)
+	engine.GET("/writecookie", writeCookieHandler)
+	engine.GET("/readcookie", readCookieHandler)
+	engine.GET("/clearcookie", clearCookieHandler)
 }

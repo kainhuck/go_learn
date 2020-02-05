@@ -377,3 +377,31 @@ func bindQueryStrHandler(c *gin.Context) {
 
 	c.String(200, "success")
 }
+
+func writeCookieHandler(c *gin.Context) {
+
+	c.SetCookie("gin_cookie", "test", 3600, "/", "localhost", http.SameSiteLaxMode, false, true)
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": "cookie writed",
+	})
+}
+
+func readCookieHandler(c *gin.Context) {
+	cookie, err := c.Cookie("gin_cookie")
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"cookie": "NONE",
+		})
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"cookie": cookie,
+	})
+}
+
+func clearCookieHandler(c *gin.Context) {
+	c.SetCookie("gin_cookie", "test", -1, "/", "localhost", http.SameSiteLaxMode, false, true)
+	c.JSON(http.StatusOK, gin.H{
+		"status": "cookie cleared",
+	})
+}
