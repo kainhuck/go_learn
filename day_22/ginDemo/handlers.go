@@ -393,6 +393,7 @@ func readCookieHandler(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"cookie": "NONE",
 		})
+		return
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"cookie": cookie,
