@@ -429,3 +429,10 @@ func listHandler(c *gin.Context) {
 		"status": "list something",
 	})
 }
+
+func mmiddlewareDemoHandler(c *gin.Context) {
+	name := c.MustGet("name")
+	c.JSON(http.StatusOK, gin.H{
+		"name": name,
+	})
+}

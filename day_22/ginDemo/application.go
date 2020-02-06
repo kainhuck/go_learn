@@ -64,4 +64,5 @@ func application(engine *gin.Engine) {
 		shopGroup.POST("/list", listHandler)
 	}
 
+	engine.GET("/middlewareDemo",statCost(), mmiddlewareDemoHandler)
 }
