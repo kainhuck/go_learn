@@ -54,4 +54,14 @@ func application(engine *gin.Engine) {
 	engine.GET("/writecookie", writeCookieHandler)
 	engine.GET("/readcookie", readCookieHandler)
 	engine.GET("/clearcookie", clearCookieHandler)
+	engine.Any("/any", statCost(), anyHandler) // 单独设置中间件
+	engine.NoRoute(noRouteHandler)
+
+	shopGroup := engine.Group("/shop", statCost()) // 为路由组设置中间件
+	// shopGroup.Use(statCost())	// 写法2
+	{
+		shopGroup.GET("/show", showHandler)
+		shopGroup.POST("/list", listHandler)
+	}
+
 }

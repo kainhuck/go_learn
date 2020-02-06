@@ -11,12 +11,16 @@ func main() {
 	engine := gin.Default() // Default 使用 Logger 和 Recovery 中间件
 	// engine := gin.New() // 不使用默认中间件
 	engine.LoadHTMLGlob("templates/**/*")
+	engine.LoadHTMLFiles("templates/404.html", "templates/index.tmpl")
 	// engine.SecureJsonPrefix(")]}',\n")
 	// 为 multipart forms 设置较低的内存限制 (默认是 32 MiB)
 	// engine.MaxMultipartMemory = 8 << 20  // 8 MiB
 
 	// 禁用控制台颜色
 	// gin.DisableConsoleColor()
+
+	// 注册一个全局中间件
+	// engine.Use(statCost())
 
 	// 记录到文件
 	// f, _ := os.Create("gin.log")

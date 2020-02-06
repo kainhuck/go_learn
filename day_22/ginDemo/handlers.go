@@ -406,3 +406,26 @@ func clearCookieHandler(c *gin.Context) {
 		"status": "cookie cleared",
 	})
 }
+
+func anyHandler(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"status": "OK",
+	})
+}
+
+func noRouteHandler(c *gin.Context) {
+	fmt.Println("Not Found 404")
+	c.HTML(http.StatusNotFound, "404.html", nil)
+}
+
+func showHandler(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"status": "show something",
+	})
+}
+
+func listHandler(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"status": "list something",
+	})
+}
