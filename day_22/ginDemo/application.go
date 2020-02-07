@@ -64,5 +64,11 @@ func application(engine *gin.Engine) {
 		shopGroup.POST("/list", listHandler)
 	}
 
-	engine.GET("/middlewareDemo",statCost(), mmiddlewareDemoHandler)
+	engine.GET("/middlewareDemo", statCost(), middlewareDemoHandler)
+	engine.GET("/redirecthttp", redirectHTTPHandler)
+	engine.GET("/redirectroute", func(c *gin.Context) {
+		// 指向重定向的路由
+		c.Request.URL.Path = "/index"
+		engine.HandleContext(c)
+	})
 }

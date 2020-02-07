@@ -430,9 +430,13 @@ func listHandler(c *gin.Context) {
 	})
 }
 
-func mmiddlewareDemoHandler(c *gin.Context) {
+func middlewareDemoHandler(c *gin.Context) {
 	name := c.MustGet("name")
 	c.JSON(http.StatusOK, gin.H{
 		"name": name,
 	})
+}
+
+func redirectHTTPHandler(c *gin.Context){
+	c.Redirect(http.StatusMovedPermanently, "https://www.sogo.com/")
 }
