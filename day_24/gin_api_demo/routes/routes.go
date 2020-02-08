@@ -6,6 +6,7 @@ package routes
 
 import (
 	"go_learn/day_24/gin_api_demo/apps"
+	"go_learn/day_24/gin_api_demo/middlewares"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -25,6 +26,7 @@ func InitRoute() *gin.Engine {
 
 	// 定义路由组
 	api := route.Group("/api")
+	api.Use(middlewares.Auth())
 	{
 		// 增加用户
 		api.POST("/user", apps.AddUserHandler)
