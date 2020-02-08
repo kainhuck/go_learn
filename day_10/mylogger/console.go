@@ -36,7 +36,7 @@ func (c ConsoleLogger) log(lv LogLevel, format string, a ...interface{}) {
 		}
 		now := time.Now()
 		funcName, fileName, lineNo := getInfo(3)
-		fmt.Printf("[%s] [%s] [%s:%s:%d] %s\n", now.Format("2006-01-02 15:04:05"), levelString, fileName, funcName, lineNo, msg)
+		fmt.Printf("[%s] %s[%s]\033[0m [%s:%s:%d] %s\n", now.Format("2006-01-02 15:04:05"), getLogColor(lv), levelString, fileName, funcName, lineNo, msg)
 	}
 }
 

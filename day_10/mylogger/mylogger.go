@@ -13,6 +13,9 @@ import (
 // LogLevel 日志等级
 type LogLevel uint16
 
+// LogColor 日志颜色
+type LogColor string
+
 const (
 	// UNKNOWN 0
 	UNKNOWN LogLevel = iota
@@ -28,6 +31,21 @@ const (
 	ERROR
 	// FATAL 6
 	FATAL
+)
+
+const (
+	// DEBUGCOLOR ...
+	DEBUGCOLOR LogColor = "\033[46m"
+	// TRACECOLOR ...
+	TRACECOLOR LogColor = "\033[45m"
+	// INFOCOLOR ...
+	INFOCOLOR LogColor = "\033[42m"
+	// WARNINGCOLOR ...
+	WARNINGCOLOR LogColor = "\033[43m"
+	// ERRORCOLOR ...
+	ERRORCOLOR LogColor = "\033[40m"
+	// FATALCOLOR ...
+	FATALCOLOR LogColor = "\033[41m"
 )
 
 // Logger 定义接口
@@ -79,6 +97,24 @@ func getLevelString(lv LogLevel) (string, error) {
 		err := errors.New("无效的日志级别")
 		return "UNKNOWN", err
 	}
+}
+
+func getLogColor(l LogLevel) (color LogColor) {
+	switch l {
+	case DEBUG:
+		color = DEBUGCOLOR
+	case TRACE:
+		color = TRACECOLOR
+	case INFO:
+		color = INFOCOLOR
+	case WARNING:
+		color = WARNINGCOLOR
+	case ERROR:
+		color = ERRORCOLOR
+	case FATAL:
+		color = FATALCOLOR
+	}
+	return
 }
 
 func getInfo(skip int) (funcName, fileName string, lineNo int) {
