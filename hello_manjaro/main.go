@@ -17,5 +17,5 @@ func main() {
 	// fmt.Printf("b: %v, type of b: %T, a: %v, type of a: %T, ok: %v\n", b, b, a, a, ok)
 
 	var a *int
-	fmt.Printf("%#v\n", &a)
+	fmt.Printf("\033[31m%#v\n", &a)
 }

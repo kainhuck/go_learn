@@ -5,13 +5,15 @@
 package apps
 
 import (
+	"go_learn/day_10/mylogger"
 	"go_learn/day_24/gin_api_demo/models"
-	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
+
+var log = mylogger.NewConsoleLogger("Debug")
 
 // AddUserHandler ...
 func AddUserHandler(c *gin.Context) {

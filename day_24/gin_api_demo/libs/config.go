@@ -6,8 +6,8 @@ package libs
 
 import (
 	"bufio"
+	"go_learn/day_10/mylogger"
 	"io"
-	"log"
 	"os"
 	"strings"
 )
@@ -24,6 +24,8 @@ var (
 
 	// MidStr ...
 	MidStr = "<@_@>"
+
+	log = mylogger.NewConsoleLogger("Debug")
 )
 
 func init() {
@@ -37,7 +39,7 @@ func (conf *Configs) LoadConfig(path string) {
 	// 1. 打开文件获取文件对象
 	file, err := os.Open(path)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(err.Error())
 	}
 	defer file.Close()
 
@@ -50,7 +52,7 @@ func (conf *Configs) LoadConfig(path string) {
 			if err == io.EOF {
 				break // 读完最后一行,退出
 			}
-			log.Fatal(err)
+			log.Fatal(err.Error())
 		}
 
 		// 处理注释

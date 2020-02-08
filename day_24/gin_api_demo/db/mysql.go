@@ -8,15 +8,18 @@ package db
 
 import (
 	"database/sql"
+	"go_learn/day_10/mylogger"
 	"go_learn/day_24/gin_api_demo/libs"
-	"log"
 
 	// ...
 	_ "github.com/go-sql-driver/mysql"
 )
 
-// Conns ...
-var Conns *sql.DB
+var (
+	// Conns ...
+	Conns *sql.DB
+	log   = mylogger.NewConsoleLogger("Debug")
+)
 
 func init() {
 	var err error

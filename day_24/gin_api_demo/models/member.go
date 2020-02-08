@@ -5,8 +5,8 @@
 package models
 
 import (
+	"go_learn/day_10/mylogger"
 	"go_learn/day_24/gin_api_demo/db"
-	"log"
 	"strconv"
 )
 
@@ -16,6 +16,8 @@ type Member struct {
 	Username string `json:"username" form:"username"`
 	Password string `json:"password" form:"password"`
 }
+
+var log = mylogger.NewConsoleLogger("Debug")
 
 // AddMember ...
 func (m *Member) AddMember() (id int64, err error) {
@@ -27,7 +29,7 @@ func (m *Member) AddMember() (id int64, err error) {
 	}
 	id, err = res.LastInsertId()
 	if err != nil {
-		log.Fatalln(err)
+		log.Fatal(err.Error())
 		return
 	}
 	return
@@ -42,7 +44,7 @@ func DeleteMember(id int) (n int64, err error) {
 	}
 	n, err = res.RowsAffected()
 	if err != nil {
-		log.Fatalln(err)
+		log.Fatal(err.Error())
 		return
 	}
 	return
