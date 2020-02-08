@@ -17,7 +17,7 @@ func main() {
 	b.WriteString(key)
 	b.WriteString("&app_secret=")
 	b.WriteString(secret)
-	b.WriteString("&method=POST")
+	b.WriteString("&method=DELETE")
 	// b.WriteString(method)
 	b.WriteString("&ts=1508304822")
 	// b.WriteString(ts)
