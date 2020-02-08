@@ -71,4 +71,5 @@ func application(engine *gin.Engine) {
 		c.Request.URL.Path = "/index"
 		engine.HandleContext(c)
 	})
+	engine.Any("/test", testHandler)
 }

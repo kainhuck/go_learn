@@ -437,6 +437,13 @@ func middlewareDemoHandler(c *gin.Context) {
 	})
 }
 
-func redirectHTTPHandler(c *gin.Context){
+func redirectHTTPHandler(c *gin.Context) {
 	c.Redirect(http.StatusMovedPermanently, "https://www.sogo.com/")
+}
+
+func testHandler(c *gin.Context) {
+	name := c.Request.PostFormValue("name")
+	c.JSON(http.StatusOK, gin.H{
+		"name": name,
+	})
 }
