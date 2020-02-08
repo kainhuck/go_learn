@@ -23,6 +23,8 @@ func InitRoute() *gin.Engine {
 
 	// 首页路由
 	route.GET("/", apps.IndexHandler)
+	// 404
+	route.NoRoute(apps.NoRouteHandler)
 
 	// 定义路由组
 	api := route.Group("/api")
