@@ -43,5 +43,5 @@ func main() {
 	log.Info("info")
 	log.Warning("warning")
 	log.Error("error")
-	log.Fatal("fatal_%s","test")
+	log.Fatal("fatal_%s","test  ")
 }
