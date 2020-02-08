@@ -106,6 +106,6 @@ func OneMember(id int) (m Member, err error) {
 	m.ID = 0
 	m.Username = ""
 	m.Password = ""
-	err = db.Conns.QueryRow("SELECT id, username, password FROM demo_users WHERE id=? LIMIT 1;").Scan(&m.ID, &m.Username, &m.Password)
+	err = db.Conns.QueryRow("SELECT id, username, password FROM demo_users WHERE id=? LIMIT 1;", id).Scan(&m.ID, &m.Username, &m.Password)
 	return
 }
