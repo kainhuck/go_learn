@@ -1,19 +1,16 @@
 package main
 
-func main() {
-	// conf := libs.Conf
-	// fmt.Println(conf.Read("mysql", "password"))
-	// secret := libs.Conf.Read("api", "apisecrect")
-	// key := libs.Conf.Read("api", "apikey")
+import (
+	"go_learn/day_24/gin_api_demo/db"
+	"go_learn/day_24/gin_api_demo/libs"
+	"go_learn/day_24/gin_api_demo/routes"
 
-	// b := bytes.Buffer{}
-	// b.WriteString("app_key=")
-	// b.WriteString(key)
-	// b.WriteString("&app_secret=")
-	// b.WriteString(secret)
-	// b.WriteString("&method=DELETE")
-	// // b.WriteString(method)
-	// b.WriteString("&ts=1508304822")
-	// // b.WriteString(ts)
-	// fmt.Println(libs.Md5([]byte(b.String())))
+	"github.com/gin-gonic/gin"
+)
+
+func main() {
+	defer db.Conns.Close()
+	gin.SetMode(libs.Conf.Read("site", "runmode"))
+	route := routes.InitRoute()
+	route.Run(":" + libs.Conf.Read("site", "httpport"))
 }
