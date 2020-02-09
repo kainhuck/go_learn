@@ -26,6 +26,7 @@ func main() {
 			}
 		}
 	}()
+	
 	time.Sleep(1600 * time.Millisecond)
 	ticker.Stop()
 	done <- true
