@@ -43,5 +43,9 @@ func main() {
 	log.Info("info")
 	log.Warning("warning")
 	log.Error("error")
-	log.Fatal("fatal_%s","test  ")
+	log.Fatal("fatal_%s", "test  ")
+
+	var a []int
+	a = append(a, 1)
+	log.Debug("%v", a)
 }
