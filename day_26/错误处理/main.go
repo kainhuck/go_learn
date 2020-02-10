@@ -7,10 +7,10 @@ package main
 import (
 	"errors"
 
-	"github.com/kainhuck/fansylog"
+	"github.com/kainhuck/fancylog"
 )
 
-var log = fansylog.NewConsoleLogger("Debug")
+var log = fancylog.NewConsoleLogger("Debug")
 
 func main() {
 	f1()

@@ -9,10 +9,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kainhuck/fansylog"
+	"github.com/kainhuck/fancylog"
 )
 
-var log = fansylog.NewConsoleLogger("debug")
+var log = fancylog.NewConsoleLogger("debug")
 
 // 定义两个结构体
 // 只有 可导出 的字段才会被 JSON 编码/解码。必须以大写字母开头的字段才是可导出的

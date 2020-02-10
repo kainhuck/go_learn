@@ -84,6 +84,6 @@ func main() {
 		return strings.HasPrefix(s, "t")
 	}))
 	fmt.Println(Map(strs, func(s string) string {
-		return s+"_love_forever~"
+		return s + "_love_forever~"
 	}))
 }
