@@ -1,0 +1,46 @@
+package main
+
+import (
+	"fmt"
+	"net"
+	"net/url"
+
+	"github.com/kainhuck/fancylog"
+)
+
+var log = fancylog.NewConsoleLogger("debug")
+
+func main() {
+	// 我们将解析这个 URL 示例，它包含了一个 scheme、 认证信息、主机名、端口、路径、查询参数以及查询片段
+	s := "postgres://user:pass@host.com:5432/path?k=v#f"
+	// s := "https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1"
+
+	u, err := url.Parse(s)
+	if err != nil {
+		log.Fatal(err.Error())
+		return
+	}
+	//访问scheme
+	fmt.Println(u.Scheme)
+
+	// User 包含了所有的认证信息， 这里调用 Username 和 Password 来获取单独的值。
+	fmt.Println(u.User)
+	fmt.Println(u.User.Username())
+	p, _ := u.User.Password()
+	fmt.Println(p)
+
+	// Host 同时包括主机名和端口信息，如果端口存在的话， 可以使用 strings.Split() 从 Host 中手动提取端口。
+	fmt.Println(u.Host)
+	host, port, _ := net.SplitHostPort(u.Host)
+	fmt.Println(host)
+	fmt.Println(port)
+
+	// 这里我们提出路径和 # 后面的查询片段信息
+	fmt.Println(u.Path)
+	fmt.Println(u.Fragment)
+
+	// 要得到字符串中的 k=v 这种格式的查询参数，可以使用 RawQuery 函数。 你也可以将查询参数解析为一个 map。已解析的查询参数 map 以查询字符串为键， 已解析的查询参数会从字符串映射到到字符串的切片， 因此如果您只想要第一个值，则索引为 [0]。
+	fmt.Println(u.RawQuery)
+	m, _ := url.ParseQuery(u.RawQuery)
+	fmt.Println(m)
+}
